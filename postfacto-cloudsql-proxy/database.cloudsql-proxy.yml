@@ -1,0 +1,6 @@
+production:
+  adapter: postgresql
+  user: <%= ENV["DB_USER"] %>
+  password: <%= ENV["DB_PASSWORD"] %>
+  database: <%= ENV["DB_DATABASE"] %>
+  host: /cloudsql/<%= ENV["DB_INSTANCE_CONNECTION_NAME"] %>

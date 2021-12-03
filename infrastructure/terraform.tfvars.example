@@ -1,0 +1,23 @@
+# will be created, with below shown defaults
+#db_user = "postfacto-db-user"
+
+# default database will be used, if you want a custom schema
+# the must exist as neither Terraform nor the App itself will
+# create the schema
+#db_schema = "postgres"
+
+# ensure to provide it via a secret.tfvars or similar so that
+# that value isn't checked into SCM.
+# *NO* default exists
+#db_password = "very-very-scary-password"
+
+# ensure to provide it via a secret.tfvars or similar so that
+# that value isn't checked into SCM.
+# *NO* default exists
+#app_secret_key_base = "even-scarier-than-the-very-scary-password"
+
+# FQDN as used by the app so that app can be reached via this.
+app_fqdn = "host.my-verified.domain.com"
+
+# the domain that the postfacto google logins will be restricted to
+app_hosted_domain = "mydomain.com"

@@ -1,16 +1,25 @@
-provider "google" {
-	region = "europe-west1"
-	zone   = "europe-west1-c"
-}
-
-variable "terraform_state_bucket" {
-  description = "Name of the GCS bucket where the Terraform state will be stored"
+variable "region" {
+  description = "Default region to be used"
   type        = string
+  default     = "europe-west1"
 }
 
-terraform {
-  backend "gcs" {
-    bucket  = var.terraform_state_bucket
-    prefix  = "postfacto-on-gcp/terraform"
-  }
+variable "zone" {
+  description = "Default zone to be used"
+  type        = string
+  default     = "europe-west1-c"
+}
+
+variable "multiregion" {
+  description = "Multi-region e.g. EU, US, Asia for GCS or similar"
+  type        = string
+  default     = "eu"
+}
+
+provider "google" {
+	region = var.region
+	zone   = var.zone
+}
+
+data "google_project" "project" {
 }
