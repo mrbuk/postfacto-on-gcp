@@ -26,11 +26,10 @@ resource "random_id" "db_name_suffix" {
 
 #
 # smallest possible postgres instance
-# public ip disabled to safe 0,10 USD per hour :)
 # 
 resource "google_sql_database_instance" "postfacto" {
   name             = "postfacto-instance-${random_id.db_name_suffix.hex}"
-  database_version = "POSTGRES_11"
+  database_version = "POSTGRES_13"
 
   settings {
     tier = "db-f1-micro"
