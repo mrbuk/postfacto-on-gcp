@@ -36,6 +36,12 @@ resource "google_cloud_run_service" "postfacto" {
   name     = "postfacto-01"
   location = var.region
 
+  metadata {
+      annotations = {
+        "run.googleapis.com/ingress"  = "internal-and-cloud-load-balancing"
+      }
+    }
+
   template {
     spec {
       containers {
@@ -82,7 +88,6 @@ resource "google_cloud_run_service" "postfacto" {
     metadata {
       annotations = {
         "autoscaling.knative.dev/maxScale"      = "50"
-        "run.googleapis.com/ingress" : "internal-and-cloud-load-balancing"
         "run.googleapis.com/cloudsql-instances" = google_sql_database_instance.postfacto.connection_name
       }
     }
