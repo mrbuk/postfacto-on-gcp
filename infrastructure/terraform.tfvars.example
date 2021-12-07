@@ -21,3 +21,6 @@ app_fqdn = "host.my-verified.domain.com"
 
 # the domain that the postfacto google logins will be restricted to
 app_hosted_domain = "mydomain.com"
+
+# members e.g. 'group:mygroup@domain.com' that are allowed to access the app
+iap_members = [ "" ]

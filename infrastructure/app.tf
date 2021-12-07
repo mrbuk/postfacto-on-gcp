@@ -11,11 +11,6 @@ variable "app_hosted_domain" {
   type        = string
 }
 
-variable "app_oauth_client_id" {
-  description = "Postfacto Google OAuth Client used for Google Login"
-  type        = string
-}
-
 data "google_container_registry_image" "postfacto" {
   region = var.multiregion
   name = "mrbuk/postfacto"
@@ -87,28 +82,10 @@ resource "google_cloud_run_service" "postfacto" {
     metadata {
       annotations = {
         "autoscaling.knative.dev/maxScale"      = "50"
+        "run.googleapis.com/ingress" : "internal-and-cloud-load-balancing"
         "run.googleapis.com/cloudsql-instances" = google_sql_database_instance.postfacto.connection_name
       }
     }
   }
-}
-
-# IAM for accessing the Cloud Run service itself
-#  no authentication is required to invoke the service
-data "google_iam_policy" "noauth" {
-  binding {
-    role = "roles/run.invoker"
-    members = [
-      "allUsers",
-    ]
-  }
-}
-
-resource "google_cloud_run_service_iam_policy" "noauth" {
-  location    = google_cloud_run_service.postfacto.location
-  project     = google_cloud_run_service.postfacto.project
-  service     = google_cloud_run_service.postfacto.name
-
-  policy_data = data.google_iam_policy.noauth.policy_data
 }
 
